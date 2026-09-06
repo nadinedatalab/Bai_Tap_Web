@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Trang Chủ - NexusShop</title>
+</head>
+<body>
+<section>
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Discover Premium Products</h1>
+        <p class="lead text-muted">The latest and greatest, handpicked for you.</p>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col" th:each="product : ${products}">
+            <div class="glass-card h-100">
+                <img th:src="${product.imageUrl != null and !product.imageUrl.isEmpty() ? product.imageUrl : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop'}" class="product-img" alt="Product Image">
+                <div class="card-body p-4">
+                    <h5 class="card-title text-truncate" th:text="${product.name}">Product Name</h5>
+                    <p class="card-text text-primary fw-bold mb-3 fs-5" th:text="${'$' + product.price}">$99.99</p>
+                    <a th:href="@{'/product/' + ${product.id}}" class="btn btn-outline-light w-100 rounded-pill">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

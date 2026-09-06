@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="${product.name} + ' - NexusShop'">Chi Tiết Sản Phẩm</title>
+</head>
+<body>
+<section>
+    <div class="glass-card p-4 p-md-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img th:src="${product.imageUrl != null and !product.imageUrl.isEmpty() ? product.imageUrl : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop'}" 
+                     class="img-fluid rounded-4 shadow-lg w-100" style="object-fit: cover; aspect-ratio: 1/1;" alt="Product Image">
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <span class="badge bg-secondary mb-2" th:if="${product.category != null}" th:text="${product.category.name}">Category</span>
+                <h1 class="display-5 fw-bold mb-3" th:text="${product.name}">Product Name</h1>
+                <p class="fs-2 text-primary fw-bold mb-4" th:text="${'$' + product.price}">$99.99</p>
+                <div class="mb-4 text-muted" style="line-height: 1.8;">
+                    <p th:text="${product.description}">Product description goes here.</p>
+                </div>
+                <div class="d-grid gap-2 d-md-flex mt-4">
+                    <button class="btn btn-primary btn-lg px-4 me-md-2"><i class="fa-solid fa-cart-plus me-2"></i> Add to Cart</button>
+                    <a href="/product" class="btn btn-outline-light btn-lg px-4">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

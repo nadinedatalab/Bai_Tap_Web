@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Sản Phẩm - NexusShop</title>
+</head>
+<body>
+<section>
+    <h2 class="mb-4 fw-bold" style="background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">All Products</h2>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        <div class="col" th:each="product : ${productPage.content}">
+            <div class="glass-card h-100">
+                <img th:src="${product.imageUrl != null and !product.imageUrl.isEmpty() ? product.imageUrl : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop'}" class="product-img" alt="Product Image">
+                <div class="card-body p-4">
+                    <h5 class="card-title text-truncate" th:text="${product.name}">Product Name</h5>
+                    <p class="card-text text-primary fw-bold mb-3 fs-5" th:text="${'$' + product.price}">$99.99</p>
+                    <a th:href="@{'/product/' + ${product.id}}" class="btn btn-outline-light w-100 rounded-pill">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <nav aria-label="Page navigation" th:if="${productPage.totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${productPage.first ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/product(page=${productPage.number - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}" 
+                th:classappend="${productPage.number == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{/product(page=${i})}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${productPage.last ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/product(page=${productPage.number + 1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</section>
+</body>
+</html>
